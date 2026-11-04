@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+
+<!-- ============ HERO SLIDER (Bootstrap carousel) ============ -->
+  <header id="heroSlider" class="carousel slide carousel-fade hero-slider" data-bs-ride="carousel">
+
+    <!-- Indicator bars at the bottom -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <div class="carousel-inner">
+
+      <!-- Slide 1: main message -->
+      <div class="carousel-item active" data-bs-interval="6000">
+        <div class="hero-slide hero-slide-1">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-7 hero-text">
+                <p class="section-label text-white-50">Strategy &middot; Operations &middot; Technology</p>
+                <!-- Only one h1 on the page; other slides use h2 -->
+                <h1 class="display-4 fw-bold mb-4">We help growing companies run like great ones.</h1>
+                <p class="lead mb-4 text-white-50">Meridian Partners works with mid-size businesses to cut costs, modernize systems, and plan their next stage of growth.</p>
+                <div class="d-flex flex-wrap gap-3">
+                  <a href="#contact" class="btn btn-brand btn-lg px-4">Book a free consultation</a>
+                  <button type="button" class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal" data-bs-target="#videoModal">
+                    <i class="bi bi-play-circle me-1" aria-hidden="true"></i> Watch our story
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: results -->
+      <div class="carousel-item" data-bs-interval="6000">
+        <div class="hero-slide hero-slide-2">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-7 hero-text">
+                <p class="section-label text-white-50">Proven results</p>
+                <h2 class="display-4 fw-bold mb-4">38% average cost savings in the first year.</h2>
+                <p class="lead mb-4 text-white-50">Over 240 clients have used our fixed-price projects to find savings they can measure.</p>
+                <div class="d-flex flex-wrap gap-3">
+                  <a href="#work" class="btn btn-brand btn-lg px-4">See case studies</a>
+                  <a href="#pricing" class="btn btn-outline-light btn-lg px-4">View pricing</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: team -->
+      <div class="carousel-item" data-bs-interval="6000">
+        <div class="hero-slide hero-slide-3">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-7 hero-text">
+                <p class="section-label text-white-50">Senior people, every time</p>
+                <h2 class="display-4 fw-bold mb-4">A partner on every account, not a junior analyst.</h2>
+                <p class="lead mb-4 text-white-50">The people you meet in the first meeting are the people who do the work.</p>
+                <div class="d-flex flex-wrap gap-3">
+                  <a href="#team" class="btn btn-brand btn-lg px-4">Meet the team</a>
+                  <a href="#contact" class="btn btn-outline-light btn-lg px-4">Get a quote</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Previous / next arrows -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroSlider" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous slide</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroSlider" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next slide</span>
+    </button>
+  </header>
+  {% endblock %}

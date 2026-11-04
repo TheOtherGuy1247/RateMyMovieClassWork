@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meridian Partners - Business Consulting</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons (free icon font from the Bootstrap team) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  {% load static %}
+  <link href="{% static 'style.css' %}" rel="stylesheet">
+  
+</head>
+<!-- data-bs-spy = scrollspy: highlights the nav link of the section you're viewing -->
+<body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="80" tabindex="0">
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="topNav">
+    <div class="container">
+      <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">
+        <i class="bi bi-compass" aria-hidden="true"></i> Meridian
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Services</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+        <a href="#contact" class="btn btn-brand ms-lg-3 mt-2 mt-lg-0">Get a quote</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ HERO SLIDER (Bootstrap carousel) ============ -->
+  <header id="heroSlider" class="carousel slide carousel-fade hero-slider" data-bs-ride="carousel">
+
+    <!-- Indicator bars at the bottom -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <div class="carousel-inner">
+
+      <!-- Slide 1: main message -->
+      <div class="carousel-item active" data-bs-interval="6000">
+        <div class="hero-slide hero-slide-1">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-7 hero-text">
+                <p class="section-label text-white-50">Strategy &middot; Operations &middot; Technology</p>
+                <!-- Only one h1 on the page; other slides use h2 -->
+                <h1 class="display-4 fw-bold mb-4">We help growing companies run like great ones.</h1>
+                <p class="lead mb-4 text-white-50">Meridian Partners works with mid-size businesses to cut costs, modernize systems, and plan their next stage of growth.</p>
+                <div class="d-flex flex-wrap gap-3">
+                  <a href="#contact" class="btn btn-brand btn-lg px-4">Book a free consultation</a>
+                  <button type="button" class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal" data-bs-target="#videoModal">
+                    <i class="bi bi-play-circle me-1" aria-hidden="true"></i> Watch our story
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2: results -->
+      <div class="carousel-item" data-bs-interval="6000">
+        <div class="hero-slide hero-slide-2">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-7 hero-text">
+                <p class="section-label text-white-50">Proven results</p>
+                <h2 class="display-4 fw-bold mb-4">38% average cost savings in the first year.</h2>
+                <p class="lead mb-4 text-white-50">Over 240 clients have used our fixed-price projects to find savings they can measure.</p>
+                <div class="d-flex flex-wrap gap-3">
+                  <a href="#work" class="btn btn-brand btn-lg px-4">See case studies</a>
+                  <a href="#pricing" class="btn btn-outline-light btn-lg px-4">View pricing</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3: team -->
+      <div class="carousel-item" data-bs-interval="6000">
+        <div class="hero-slide hero-slide-3">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-7 hero-text">
+                <p class="section-label text-white-50">Senior people, every time</p>
+                <h2 class="display-4 fw-bold mb-4">A partner on every account, not a junior analyst.</h2>
+                <p class="lead mb-4 text-white-50">The people you meet in the first meeting are the people who do the work.</p>
+                <div class="d-flex flex-wrap gap-3">
+                  <a href="#team" class="btn btn-brand btn-lg px-4">Meet the team</a>
+                  <a href="#contact" class="btn btn-outline-light btn-lg px-4">Get a quote</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Previous / next arrows -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroSlider" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous slide</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroSlider" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next slide</span>
+    </button>
+  </header>
+
+  <main>
+    <!-- ============ CLIENT STRIP ============ -->
+    <div class="py-4 border-bottom">
+      <div class="container">
+        <p class="text-center text-muted small mb-3">Trusted by teams at</p>
+        <div class="clients d-flex flex-wrap justify-content-center justify-content-md-between gap-4">
+          <span>NORTHWIND</span>
+          <span>BLUESTONE</span>
+          <span>ORCHARD&nbsp;CO.</span>
+          <span>KESTREL</span>
+          <span>FAIRLANE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ SERVICES ============ -->
+    <section id="services">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-label">What we do</p>
+          <h2>Services built around results</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm card-hover p-3">
+              <div class="card-body">
+                <div class="service-icon mb-3"><i class="bi bi-graph-up-arrow" aria-hidden="true"></i></div>
+                <h3 class="h5 fw-bold">Growth strategy</h3>
+                <p class="text-muted mb-0">Market research and a clear 3-year plan your whole team can follow.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm card-hover p-3">
+              <div class="card-body">
+                <div class="service-icon mb-3"><i class="bi bi-gear-wide-connected" aria-hidden="true"></i></div>
+                <h3 class="h5 fw-bold">Operations</h3>
+                <p class="text-muted mb-0">Find the bottlenecks, simplify the process, and lower your costs.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm card-hover p-3">
+              <div class="card-body">
+                <div class="service-icon mb-3"><i class="bi bi-cloud-check" aria-hidden="true"></i></div>
+                <h3 class="h5 fw-bold">Technology</h3>
+                <p class="text-muted mb-0">Move off old systems and choose software that actually fits.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="card h-100 border-0 shadow-sm card-hover p-3">
+              <div class="card-body">
+                <div class="service-icon mb-3"><i class="bi bi-people" aria-hidden="true"></i></div>
+                <h3 class="h5 fw-bold">Leadership</h3>
+                <p class="text-muted mb-0">Coaching and workshops for managers stepping into bigger roles.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT (image + text + checklist) ============ -->
+    <section id="about" class="bg-soft">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-6">
+            <img src="https://picsum.photos/seed/meeting/800/600" class="img-fluid rounded-4 shadow" alt="Team meeting around a conference table">
+          </div>
+          <div class="col-lg-6">
+            <p class="section-label">About us</p>
+            <h2 class="mb-3">Fifteen years of practical advice</h2>
+            <p class="text-muted">We started Meridian because too many consulting reports end up on a shelf. Every engagement ends with changes that are already in place, not just recommendations.</p>
+            <ul class="list-unstyled mt-4">
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2" aria-hidden="true"></i>Fixed-price projects, no surprise invoices</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2" aria-hidden="true"></i>A senior partner on every account</li>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2" aria-hidden="true"></i>Results measured 6 months after we leave</li>
+            </ul>
+            <a href="#team" class="btn btn-outline-dark mt-2">Meet the team</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATS (numbers count up when scrolled into view) ============ -->
+    <section class="bg-ink py-5">
+      <div class="container">
+        <div class="row text-center g-4">
+          <div class="col-6 col-md-3">
+            <div class="stat-number" data-count="240">0</div>
+            <p class="text-white-50 mb-0">Clients served</p>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stat-number" data-count="15">0</div>
+            <p class="text-white-50 mb-0">Years in business</p>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stat-number" data-count="38" data-suffix="%">0</div>
+            <p class="text-white-50 mb-0">Average cost savings</p>
+          </div>
+          <div class="col-6 col-md-3">
+            <div class="stat-number" data-count="96" data-suffix="%">0</div>
+            <p class="text-white-50 mb-0">Would hire us again</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CASE STUDIES (pills) ============ -->
+    <section id="work">
+      <div class="container">
+        <div class="text-center mb-4">
+          <p class="section-label">Our work</p>
+          <h2>Recent case studies</h2>
+        </div>
+
+        <ul class="nav nav-pills justify-content-center mb-4" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#case1" type="button" role="tab" aria-controls="case1" aria-selected="true">Retail</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#case2" type="button" role="tab" aria-controls="case2" aria-selected="false">Healthcare</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#case3" type="button" role="tab" aria-controls="case3" aria-selected="false">Manufacturing</button>
+          </li>
+        </ul>
+
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="case1" role="tabpanel">
+            <div class="row align-items-center g-4">
+              <div class="col-md-5"><img src="https://picsum.photos/seed/retail/700/500" class="img-fluid rounded-3" alt="Store shelves stocked with products"></div>
+              <div class="col-md-7">
+                <span class="badge text-bg-primary mb-2">Operations</span>
+                <h3 class="h4 fw-bold">Regional grocery chain cuts waste by 31%</h3>
+                <p class="text-muted">We rebuilt ordering for 22 stores around real sales data instead of guesswork, and trained each store manager on the new system.</p>
+                <div class="row text-center mt-3">
+                  <div class="col"><strong class="fs-4 d-block">31%</strong><span class="small text-muted">less waste</span></div>
+                  <div class="col"><strong class="fs-4 d-block">$1.2M</strong><span class="small text-muted">saved per year</span></div>
+                  <div class="col"><strong class="fs-4 d-block">4 mo</strong><span class="small text-muted">to roll out</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="case2" role="tabpanel">
+            <div class="row align-items-center g-4">
+              <div class="col-md-5"><img src="https://picsum.photos/seed/clinic/700/500" class="img-fluid rounded-3" alt="Bright clinic waiting area"></div>
+              <div class="col-md-7">
+                <span class="badge text-bg-success mb-2">Technology</span>
+                <h3 class="h4 fw-bold">Clinic network halves patient wait times</h3>
+                <p class="text-muted">A new scheduling system and online check-in moved paperwork out of the waiting room.</p>
+                <div class="row text-center mt-3">
+                  <div class="col"><strong class="fs-4 d-block">52%</strong><span class="small text-muted">shorter waits</span></div>
+                  <div class="col"><strong class="fs-4 d-block">9</strong><span class="small text-muted">locations</span></div>
+                  <div class="col"><strong class="fs-4 d-block">4.8&#9733;</strong><span class="small text-muted">patient rating</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="case3" role="tabpanel">
+            <div class="row align-items-center g-4">
+              <div class="col-md-5"><img src="https://picsum.photos/seed/factory/700/500" class="img-fluid rounded-3" alt="Factory floor with machinery"></div>
+              <div class="col-md-7">
+                <span class="badge text-bg-warning mb-2">Strategy</span>
+                <h3 class="h4 fw-bold">Parts maker enters two new markets</h3>
+                <p class="text-muted">Market research showed demand in medical devices and aerospace. We built the sales plan and certification roadmap.</p>
+                <div class="row text-center mt-3">
+                  <div class="col"><strong class="fs-4 d-block">+27%</strong><span class="small text-muted">revenue</span></div>
+                  <div class="col"><strong class="fs-4 d-block">2</strong><span class="small text-muted">new markets</span></div>
+                  <div class="col"><strong class="fs-4 d-block">18</strong><span class="small text-muted">new clients</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TEAM ============ -->
+    <section id="team" class="bg-soft">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-label">Our people</p>
+          <h2>Leadership team</h2>
+        </div>
+        <div class="row g-4 team">
+          <div class="col-sm-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100 text-center card-hover">
+              <img src="https://picsum.photos/seed/p1/400/400" class="card-img-top" alt="Portrait of Dana Ortiz">
+              <div class="card-body">
+                <h3 class="h6 fw-bold mb-0">Dana Ortiz</h3>
+                <p class="small text-muted">Managing Partner</p>
+                <a href="#" class="text-secondary me-2" aria-label="Dana Ortiz on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="#" class="text-secondary" aria-label="Email Dana Ortiz"><i class="bi bi-envelope"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100 text-center card-hover">
+              <img src="https://picsum.photos/seed/p2/400/400" class="card-img-top" alt="Portrait of Sam Patel">
+              <div class="card-body">
+                <h3 class="h6 fw-bold mb-0">Sam Patel</h3>
+                <p class="small text-muted">Head of Strategy</p>
+                <a href="#" class="text-secondary me-2" aria-label="Sam Patel on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="#" class="text-secondary" aria-label="Email Sam Patel"><i class="bi bi-envelope"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100 text-center card-hover">
+              <img src="https://picsum.photos/seed/p3/400/400" class="card-img-top" alt="Portrait of Lee Chen">
+              <div class="card-body">
+                <h3 class="h6 fw-bold mb-0">Lee Chen</h3>
+                <p class="small text-muted">Head of Technology</p>
+                <a href="#" class="text-secondary me-2" aria-label="Lee Chen on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="#" class="text-secondary" aria-label="Email Lee Chen"><i class="bi bi-envelope"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-3">
+            <div class="card border-0 shadow-sm h-100 text-center card-hover">
+              <img src="https://picsum.photos/seed/p4/400/400" class="card-img-top" alt="Portrait of Morgan Reyes">
+              <div class="card-body">
+                <h3 class="h6 fw-bold mb-0">Morgan Reyes</h3>
+                <p class="small text-muted">Operations Lead</p>
+                <a href="#" class="text-secondary me-2" aria-label="Morgan Reyes on LinkedIn"><i class="bi bi-linkedin"></i></a>
+                <a href="#" class="text-secondary" aria-label="Email Morgan Reyes"><i class="bi bi-envelope"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TESTIMONIALS (carousel) ============ -->
+    <section>
+      <div class="container">
+        <div class="text-center mb-4">
+          <p class="section-label">Testimonials</p>
+          <h2>What clients say</h2>
+        </div>
+        <div id="testimonials" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner text-center pb-5">
+            <div class="carousel-item active testimonial">
+              <img src="https://picsum.photos/seed/c1/150/150" class="rounded-circle mb-3" alt="Photo of Priya Shah">
+              <blockquote class="blockquote mx-auto" style="max-width: 640px;">
+                <p class="fs-5">"They didn't just hand us a report. Six months later our ordering costs are down a third."</p>
+              </blockquote>
+              <p class="fw-bold mb-0">Priya Shah</p>
+              <p class="small text-muted">COO, Northwind Grocers</p>
+            </div>
+            <div class="carousel-item testimonial">
+              <img src="https://picsum.photos/seed/c2/150/150" class="rounded-circle mb-3" alt="Photo of Marcus Bell">
+              <blockquote class="blockquote mx-auto" style="max-width: 640px;">
+                <p class="fs-5">"Clear pricing, senior people in every meeting, and results we could measure."</p>
+              </blockquote>
+              <p class="fw-bold mb-0">Marcus Bell</p>
+              <p class="small text-muted">CEO, Kestrel Health</p>
+            </div>
+            <div class="carousel-item testimonial">
+              <img src="https://picsum.photos/seed/c3/150/150" class="rounded-circle mb-3" alt="Photo of Elena Ruiz">
+              <blockquote class="blockquote mx-auto" style="max-width: 640px;">
+                <p class="fs-5">"The market study opened two industries we had never considered."</p>
+              </blockquote>
+              <p class="fw-bold mb-0">Elena Ruiz</p>
+              <p class="small text-muted">President, Fairlane Manufacturing</p>
+            </div>
+          </div>
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#testimonials" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Testimonial 1"></button>
+            <button type="button" data-bs-target="#testimonials" data-bs-slide-to="1" aria-label="Testimonial 2"></button>
+            <button type="button" data-bs-target="#testimonials" data-bs-slide-to="2" aria-label="Testimonial 3"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <section id="pricing" class="bg-soft">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-label">Pricing</p>
+          <h2>Simple, fixed-price packages</h2>
+        </div>
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4">
+                <h3 class="h5 fw-bold">Assessment</h3>
+                <p class="display-6 fw-bold mb-0">$4,900</p>
+                <p class="text-muted small">one-time</p>
+                <ul class="list-unstyled my-4">
+                  <li class="mb-2"><i class="bi bi-check2 text-primary me-2" aria-hidden="true"></i>2-week review</li>
+                  <li class="mb-2"><i class="bi bi-check2 text-primary me-2" aria-hidden="true"></i>Written findings</li>
+                  <li class="mb-2 text-muted"><i class="bi bi-x me-2" aria-hidden="true"></i>Implementation</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline-primary w-100">Choose plan</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card shadow plan-featured h-100">
+              <div class="card-body p-4">
+                <span class="badge text-bg-primary mb-2">Most popular</span>
+                <h3 class="h5 fw-bold">Transformation</h3>
+                <p class="display-6 fw-bold mb-0">$18,500</p>
+                <p class="text-muted small">per project</p>
+                <ul class="list-unstyled my-4">
+                  <li class="mb-2"><i class="bi bi-check2 text-primary me-2" aria-hidden="true"></i>Everything in Assessment</li>
+                  <li class="mb-2"><i class="bi bi-check2 text-primary me-2" aria-hidden="true"></i>3-month implementation</li>
+                  <li class="mb-2"><i class="bi bi-check2 text-primary me-2" aria-hidden="true"></i>Staff training</li>
+                </ul>
+                <a href="#contact" class="btn btn-brand w-100">Choose plan</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-body p-4">
+                <h3 class="h5 fw-bold">Partnership</h3>
+                <p class="display-6 fw-bold mb-0">Custom</p>
+                <p class="text-muted small">ongoing</p>
+                <ul class="list-unstyled my-4">
+                  <li class="mb-2"><i class="bi bi-check2 text-primary me-2" aria-hidden="true"></i>Everything in Transformation</li>
+                  <li class="mb-2"><i class="bi bi-check2 text-primary me-2" aria-hidden="true"></i>Monthly strategy sessions</li>
+                  <li class="mb-2"><i class="bi bi-check2 text-primary me-2" aria-hidden="true"></i>Dedicated partner</li>
+                </ul>
+                <a href="#contact" class="btn btn-outline-primary w-100">Contact sales</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section id="contact">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-5">
+            <p class="section-label">Contact</p>
+            <h2 class="mb-3">Let's talk about your business</h2>
+            <p class="text-muted mb-4">Tell us a little about where you're stuck. A partner will reply within one business day.</p>
+            <ul class="list-unstyled">
+              <li class="d-flex mb-3"><i class="bi bi-geo-alt fs-4 text-primary me-3" aria-hidden="true"></i><span>400 Market Street, Suite 900<br>Philadelphia, PA 19106</span></li>
+              <li class="d-flex mb-3"><i class="bi bi-telephone fs-4 text-primary me-3" aria-hidden="true"></i><span>(555) 014-7700</span></li>
+              <li class="d-flex"><i class="bi bi-envelope fs-4 text-primary me-3" aria-hidden="true"></i><span>hello@meridianpartners.example</span></li>
+            </ul>
+          </div>
+          <div class="col-lg-7">
+            <form id="contactForm" class="card border-0 shadow-sm p-4 needs-validation" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="cName" class="form-label">Full name</label>
+                  <input type="text" class="form-control" id="cName" required>
+                  <div class="invalid-feedback">Enter your name.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="cCompany" class="form-label">Company</label>
+                  <input type="text" class="form-control" id="cCompany" required>
+                  <div class="invalid-feedback">Enter your company.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="cEmail" class="form-label">Work email</label>
+                  <input type="email" class="form-control" id="cEmail" required>
+                  <div class="invalid-feedback">Enter a valid email.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="cSize" class="form-label">Company size</label>
+                  <select class="form-select" id="cSize" required>
+                    <option value="">Choose one</option>
+                    <option>1 - 49 employees</option>
+                    <option>50 - 249 employees</option>
+                    <option>250 - 999 employees</option>
+                    <option>1,000+ employees</option>
+                  </select>
+                  <div class="invalid-feedback">Choose a company size.</div>
+                </div>
+                <div class="col-12">
+                  <p class="form-label mb-1">Interested in</p>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="iStrategy">
+                    <label class="form-check-label" for="iStrategy">Strategy</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="iOps">
+                    <label class="form-check-label" for="iOps">Operations</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="iTech">
+                    <label class="form-check-label" for="iTech">Technology</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="iLead">
+                    <label class="form-check-label" for="iLead">Leadership</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <label for="cMessage" class="form-label">How can we help?</label>
+                  <textarea class="form-control" id="cMessage" rows="4" required></textarea>
+                  <div class="invalid-feedback">Add a short message.</div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-brand btn-lg w-100">Send message</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-ink text-white-50 pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <p class="fw-bold fs-5 text-white"><i class="bi bi-compass" aria-hidden="true"></i> Meridian Partners</p>
+          <p class="small">Practical consulting for growing companies since 2011.</p>
+          <a href="#" class="fs-5 me-3" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="#" class="fs-5 me-3" aria-label="X"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="fs-5" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="fw-semibold text-white">Company</p>
+          <ul class="list-unstyled small">
+            <li class="mb-1"><a href="#about">About</a></li>
+            <li class="mb-1"><a href="#team">Team</a></li>
+            <li class="mb-1"><a href="#">Careers</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <p class="fw-semibold text-white">Services</p>
+          <ul class="list-unstyled small">
+            <li class="mb-1"><a href="#services">Strategy</a></li>
+            <li class="mb-1"><a href="#services">Operations</a></li>
+            <li class="mb-1"><a href="#services">Technology</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <p class="fw-semibold text-white">Newsletter</p>
+          <p class="small">One useful idea for business owners, once a month.</p>
+          <form class="input-group" id="newsForm">
+            <label for="newsEmail" class="visually-hidden">Email address</label>
+            <input type="email" class="form-control" id="newsEmail" placeholder="you@company.com" required>
+            <button class="btn btn-brand" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <hr class="border-secondary my-4">
+      <p class="small text-center mb-0">&copy; 2026 Meridian Partners. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- ============ VIDEO MODAL ============ -->
+  <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content bg-dark">
+        <div class="modal-header border-0">
+          <h5 class="modal-title text-white" id="videoTitle">Our story</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="ratio ratio-16x9">
+            <video id="storyVideo" controls preload="metadata">
+              <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
+              <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm">
+              Your browser doesn't support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TOAST (message sent) ============ -->
+  <div class="toast-container position-fixed bottom-0 start-0 p-3">
+    <div id="sentToast" class="toast text-bg-success border-0" role="status" aria-live="polite" aria-atomic="true">
+      <div class="d-flex">
+        <div class="toast-body" id="toastText">Thanks! We'll be in touch within one business day.</div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to top -->
+  <a href="#" id="toTop" class="btn btn-brand rounded-circle shadow" aria-label="Back to top">
+    <i class="bi bi-arrow-up" aria-hidden="true"></i>
+  </a>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Our JavaScript -->
+  <script>
+    const nav = document.getElementById('topNav');
+    const toTop = document.getElementById('toTop');
+
+    // 1. Solid navbar + back-to-top button after scrolling down
+    function onScroll() {
+      const down = window.scrollY > 60;
+      nav.classList.toggle('scrolled', down);
+      toTop.style.display = window.scrollY > 600 ? 'inline-flex' : 'none';
+    }
+    window.addEventListener('scroll', onScroll);
+    onScroll();
+
+    // 2. Close the mobile menu after tapping a link
+    document.querySelectorAll('#mainNav .nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const menu = bootstrap.Collapse.getInstance(document.getElementById('mainNav'));
+        if (menu) menu.hide();
+      });
+    });
+
+    // 3. Count the stats up when they scroll into view (runs once)
+    const counters = document.querySelectorAll('[data-count]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = Number(el.dataset.count);
+        const suffix = el.dataset.suffix || '';
+        let current = 0;
+        const step = Math.max(1, Math.ceil(target / 60));
+        const timer = setInterval(() => {
+          current = Math.min(current + step, target);
+          el.textContent = current + suffix;
+          if (current === target) clearInterval(timer);
+        }, 20);
+        observer.unobserve(el);
+      });
+    }, { threshold: 0.6 });
+    counters.forEach(c => observer.observe(c));
+
+    // 4. Video modal: pause the hero slider while it's open, and pause the video when it closes
+    const heroSlider = bootstrap.Carousel.getOrCreateInstance(document.getElementById('heroSlider'));
+    const videoModal = document.getElementById('videoModal');
+    videoModal.addEventListener('shown.bs.modal', () => heroSlider.pause());
+    videoModal.addEventListener('hidden.bs.modal', () => {
+      document.getElementById('storyVideo').pause();
+      heroSlider.cycle();
+    });
+
+    // 5. Forms: validate, then show a toast instead of sending anywhere
+    const toast = () => bootstrap.Toast.getOrCreateInstance(document.getElementById('sentToast'));
+
+    document.getElementById('contactForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const form = e.target;
+      form.classList.add('was-validated');
+      if (!form.checkValidity()) return;
+      document.getElementById('toastText').textContent = "Thanks! We'll be in touch within one business day.";
+      toast().show();
+      form.reset();
+      form.classList.remove('was-validated');
+    });
+
+    document.getElementById('newsForm').addEventListener('submit', e => {
+      e.preventDefault();
+      document.getElementById('toastText').textContent = "You're subscribed. Watch your inbox!";
+      toast().show();
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

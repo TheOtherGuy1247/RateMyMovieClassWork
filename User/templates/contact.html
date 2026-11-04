@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+ <!-- ============ CONTACT ============ -->
+    <section id="contact">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-5">
+            <p class="section-label">Contact</p>
+            <h2 class="mb-3">Let's talk about your business</h2>
+            <p class="text-muted mb-4">Tell us a little about where you're stuck. A partner will reply within one business day.</p>
+            <ul class="list-unstyled">
+              <li class="d-flex mb-3"><i class="bi bi-geo-alt fs-4 text-primary me-3" aria-hidden="true"></i><span>400 Market Street, Suite 900<br>Philadelphia, PA 19106</span></li>
+              <li class="d-flex mb-3"><i class="bi bi-telephone fs-4 text-primary me-3" aria-hidden="true"></i><span>(555) 014-7700</span></li>
+              <li class="d-flex"><i class="bi bi-envelope fs-4 text-primary me-3" aria-hidden="true"></i><span>hello@meridianpartners.example</span></li>
+            </ul>
+          </div>
+          <div class="col-lg-7">
+            <form id="contactForm" class="card border-0 shadow-sm p-4 needs-validation" novalidate>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="cName" class="form-label">Full name</label>
+                  <input type="text" class="form-control" id="cName" required>
+                  <div class="invalid-feedback">Enter your name.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="cCompany" class="form-label">Company</label>
+                  <input type="text" class="form-control" id="cCompany" required>
+                  <div class="invalid-feedback">Enter your company.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="cEmail" class="form-label">Work email</label>
+                  <input type="email" class="form-control" id="cEmail" required>
+                  <div class="invalid-feedback">Enter a valid email.</div>
+                </div>
+                <div class="col-md-6">
+                  <label for="cSize" class="form-label">Company size</label>
+                  <select class="form-select" id="cSize" required>
+                    <option value="">Choose one</option>
+                    <option>1 - 49 employees</option>
+                    <option>50 - 249 employees</option>
+                    <option>250 - 999 employees</option>
+                    <option>1,000+ employees</option>
+                  </select>
+                  <div class="invalid-feedback">Choose a company size.</div>
+                </div>
+                <div class="col-12">
+                  <p class="form-label mb-1">Interested in</p>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="iStrategy">
+                    <label class="form-check-label" for="iStrategy">Strategy</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="iOps">
+                    <label class="form-check-label" for="iOps">Operations</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="iTech">
+                    <label class="form-check-label" for="iTech">Technology</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="iLead">
+                    <label class="form-check-label" for="iLead">Leadership</label>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <label for="cMessage" class="form-label">How can we help?</label>
+                  <textarea class="form-control" id="cMessage" rows="4" required></textarea>
+                  <div class="invalid-feedback">Add a short message.</div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-brand btn-lg w-100">Send message</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endblock %}
