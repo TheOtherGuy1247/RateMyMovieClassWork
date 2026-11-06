@@ -1,0 +1,188 @@
+ /* ============ 1. Colors and fonts ============ */
+    :root {
+      --night: #121a33;     /* theater dark: navbar, hero, footer */
+      --night-2: #1b2547;
+      --seat: #c8203a;      /* velvet-seat red: main buttons */
+      --seat-dark: #a3172d;
+      --bulb: #ffc94a;      /* light-bulb gold: stars and sign lights */
+      --screen: #f4f5f8;    /* page background */
+      --slate: #5b6478;     /* secondary text */
+      --line: #dde0e8;
+
+      --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+      --body: "Atkinson Hyperlegible", system-ui, sans-serif;
+    }
+
+    body {
+      font-family: var(--body);
+      background: var(--screen);
+      color: var(--night);
+      font-size: 1.0625rem;
+    }
+    h1, h2, h3, .display-font { font-family: var(--display); font-weight: 800; letter-spacing: .01em; }
+    h2 { font-size: 2.4rem; }
+    a { color: var(--seat); }
+    a:hover { color: var(--seat-dark); }
+    .text-slate { color: var(--slate); }
+    .text-bulb { color: var(--bulb); }
+    :focus-visible { outline: 3px solid var(--bulb); outline-offset: 2px; }
+
+    .btn-seat { background: var(--seat); border-color: var(--seat); color: #fff; font-weight: 700; }
+    .btn-seat:hover, .btn-seat:focus { background: var(--seat-dark); border-color: var(--seat-dark); color: #fff; }
+    .btn-ghost { border: 2px solid rgba(255,255,255,.35); color: #fff; font-weight: 700; }
+    .btn-ghost:hover { border-color: #fff; color: #fff; }
+
+    /* ============ 2. Navbar ============ */
+    .site-nav { background: var(--night); }
+    .site-nav .navbar-brand { font-family: var(--display); font-weight: 900; font-size: 1.75rem; letter-spacing: .02em; }
+    .site-nav .navbar-brand i { color: var(--bulb); }
+    .site-nav .nav-link { color: rgba(255,255,255,.75); }
+    .site-nav .nav-link:hover, .site-nav .nav-link.active { color: #fff; }
+    .site-nav .form-control { background: var(--night-2); border-color: transparent; color: #fff; }
+    .site-nav .form-control::placeholder { color: rgba(255,255,255,.5); }
+
+    /* ============ 3. Spotlight hero ============ */
+    .spot {
+      --hue: 47;   /* set by JavaScript to match the featured movie's poster */
+      color: #fff;
+      background:
+        radial-gradient(ellipse 50% 80% at 78% 40%, hsl(var(--hue) 70% 35% / .55), transparent 70%),
+        var(--night);
+      padding: 4rem 0 2.5rem;
+      overflow: hidden;
+    }
+    .spot-reason { color: var(--bulb); font-weight: 700; }
+    .spot-title {
+      font-size: clamp(3.25rem, 9vw, 7.5rem);
+      line-height: .9;
+      text-transform: uppercase;
+      margin: .5rem 0 1rem;
+      overflow-wrap: anywhere;
+    }
+    .spot-meta { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; color: rgba(255,255,255,.7); margin-bottom: 1rem; }
+    .spot-score { font-family: var(--display); font-weight: 900; font-size: 2.75rem; color: var(--bulb); line-height: 1; }
+    .spot-overview { color: rgba(255,255,255,.82); max-width: 34rem; font-size: 1.15rem; }
+
+    /* The big poster: the one moment of motion, when you pick another movie */
+    .spot-poster { display: block; max-width: 280px; margin-left: auto; transform: rotate(3deg); color: #fff; text-decoration: none; }
+    .spot-poster:hover { color: #fff; }
+    .spot-poster .poster { box-shadow: 0 40px 80px -20px rgba(0,0,0,.75); }
+    .spot-poster .poster-title { font-size: 2.6rem; }
+    .spot-poster.swap { animation: posterIn .5s ease-out; }
+    @keyframes posterIn {
+      from { opacity: 0; transform: rotate(8deg) translateY(24px); }
+      to   { opacity: 1; transform: rotate(3deg); }
+    }
+
+    /* "Featured this week" strip */
+    .strip-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .25rem 1rem; margin-top: 3rem; }
+    .strip-head h2 { font-size: 1.6rem; margin: 0; }
+    .strip-head p { color: rgba(255,255,255,.6); font-size: .9rem; margin: 0; }
+    .spot-strip { display: flex; gap: 1rem; margin-top: 1rem; overflow-x: auto; padding: 4px 4px .5rem; }
+    .spot-strip button {
+      flex: 0 0 132px; background: none; border: 0; padding: 0; text-align: left; color: #fff; opacity: .6;
+    }
+    .spot-strip button:hover, .spot-strip button[aria-pressed="true"] { opacity: 1; }
+    .spot-strip button[aria-pressed="true"] .poster { outline: 3px solid var(--bulb); outline-offset: 3px; }
+    .spot-strip .poster { padding: .5rem; }
+    .spot-strip .poster-title { font-size: .9rem; }
+    .spot-strip .poster-year { display: none; }
+    .strip-title { display: block; font-weight: 700; font-size: .9rem; margin-top: .55rem; }
+    .strip-reason { display: block; font-size: .78rem; color: rgba(255,255,255,.7); }
+    .strip-reason i { color: var(--bulb); }
+
+    @media (max-width: 767px) {
+      .spot-poster { max-width: 170px; margin: .5rem auto 0; }
+      .spot-poster .poster-title { font-size: 1.6rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .spot-poster.swap { animation: none; }
+    }
+
+    /* ============ 4. Posters (colored one-sheets, since we have no images) ============ */
+    .poster {
+      aspect-ratio: 2 / 3;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: .9rem;
+      color: #fff;
+      background:
+        linear-gradient(to top, rgba(0,0,0,.55), transparent 55%),
+        linear-gradient(165deg, hsl(var(--hue) 60% 46%), hsl(calc(var(--hue) + 35) 65% 18%));
+      box-shadow: 0 10px 24px -12px rgba(18,26,51,.6);
+    }
+    .poster-title { font-family: var(--display); font-weight: 900; font-size: 1.6rem; line-height: .95; text-transform: uppercase; overflow-wrap: anywhere; }
+    .poster-md .poster-title { font-size: 1.15rem; }
+    .poster-year { font-size: .8rem; opacity: .8; margin-top: .3rem; }
+    .poster-sm { width: 52px; padding: .3rem; }
+    .poster-sm .poster-title { font-size: .55rem; }
+    .poster-sm .poster-year { display: none; }
+
+    /* ============ 5. Browse grid ============ */
+    .browse { padding: 4rem 0; }
+    .chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .chip {
+      border: 1px solid var(--line); background: #fff; color: var(--night);
+      border-radius: 999px; padding: .3rem .9rem; font-size: .95rem;
+    }
+    .chip:hover { border-color: var(--night); }
+    .chip[aria-pressed="true"] { background: var(--night); border-color: var(--night); color: #fff; }
+
+    .movie-link { color: inherit; text-decoration: none; display: block; }
+    .movie-link .poster { transition: transform .15s ease; }
+    .movie-link:hover .poster, .movie-link:focus-visible .poster { transform: translateY(-4px); }
+    .movie-link h3 { font-family: var(--body); font-weight: 700; font-size: 1rem; margin: .7rem 0 .15rem; }
+    .movie-meta { color: var(--slate); font-size: .875rem; }
+
+    /* ============ 6. Ranked list + latest reviews ============ */
+    .lower { padding: 4rem 0 5rem; background: #fff; border-top: 1px solid var(--line); }
+    .rank-item { display: flex; align-items: center; gap: 1rem; padding: .85rem 0; border-bottom: 1px solid var(--line); }
+    .rank-num { font-family: var(--display); font-weight: 900; font-size: 2.4rem; width: 2rem; color: var(--line); line-height: 1; }
+    .rank-item:first-child .rank-num { color: var(--bulb); }
+    .rank-item a { color: var(--night); font-weight: 700; text-decoration: none; }
+    .rank-item a:hover { color: var(--seat); }
+
+    .quote { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+    .quote p { font-size: 1.1rem; margin: .35rem 0; }
+    .quote small { color: var(--slate); }
+
+    .stars { color: var(--bulb); white-space: nowrap; }
+
+    /* ============ 7. Detail page ============ */
+    .detail-head { background: var(--night); color: #fff; padding: 2.5rem 0 3rem; }
+    .detail-head .breadcrumb a { color: rgba(255,255,255,.65); }
+    .detail-head .breadcrumb-item.active { color: #fff; }
+    .detail-head .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,.4); }
+    .detail-title { font-size: clamp(2.8rem, 7vw, 5rem); line-height: .95; text-transform: uppercase; }
+    .facts { display: flex; flex-wrap: wrap; gap: .25rem 1.25rem; color: rgba(255,255,255,.7); margin: .75rem 0 1.25rem; }
+    .score-big { font-family: var(--display); font-weight: 900; font-size: 4rem; line-height: .9; color: var(--bulb); }
+
+    .detail-body { padding: 3rem 0 4rem; }
+    .panel { background: #fff; border-radius: 10px; padding: 1.5rem; border: 1px solid var(--line); }
+    .panel h2 { font-size: 1.9rem; }
+
+    /* Clickable stars: radios written 5..1 and shown reversed, so "~" lights the stars to the left */
+    .star-input { display: inline-flex; flex-direction: row-reverse; gap: .2rem; }
+    .star-input input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .star-input label { font-size: 2.2rem; color: #cfd3dc; cursor: pointer; line-height: 1; }
+    .star-input input:checked ~ label,
+    .star-input label:hover,
+    .star-input label:hover ~ label { color: var(--bulb); }
+    .star-input input:focus-visible + label { outline: 3px solid var(--night); border-radius: 4px; }
+
+    .review { display: flex; gap: .9rem; padding: 1.1rem 0; border-bottom: 1px solid var(--line); }
+    .review:last-child { border-bottom: 0; }
+    .review.mine { background: #fff7e0; margin: 0 -1.5rem; padding: 1.1rem 1.5rem; }
+    .avatar {
+      width: 40px; height: 40px; flex-shrink: 0; border-radius: 50%;
+      display: grid; place-items: center; color: #fff; font-weight: 700;
+    }
+
+    .bar { height: 8px; background: var(--screen); border-radius: 4px; overflow: hidden; }
+    .bar span { display: block; height: 100%; background: var(--bulb); }
+
+    /* ============ 8. Footer ============ */
+    footer { background: var(--night); color: rgba(255,255,255,.6); padding: 2rem 0; }
+    footer a { color: rgba(255,255,255,.8); }

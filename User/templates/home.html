@@ -3,89 +3,73 @@
 
 {% block content %}
 
+<!-- =====================================================================
+       PAGE 1: HOMEPAGE  (Django: templates/movies/home.html)
+       ===================================================================== -->
+  <div id="homePage">
 
-<!-- ============ HERO SLIDER (Bootstrap carousel) ============ -->
-  <header id="heroSlider" class="carousel slide carousel-fade hero-slider" data-bs-ride="carousel">
-
-    <!-- Indicator bars at the bottom -->
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#heroSlider" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-
-    <div class="carousel-inner">
-
-      <!-- Slide 1: main message -->
-      <div class="carousel-item active" data-bs-interval="6000">
-        <div class="hero-slide hero-slide-1">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-7 hero-text">
-                <p class="section-label text-white-50">Strategy &middot; Operations &middot; Technology</p>
-                <!-- Only one h1 on the page; other slides use h2 -->
-                <h1 class="display-4 fw-bold mb-4">We help growing companies run like great ones.</h1>
-                <p class="lead mb-4 text-white-50">Meridian Partners works with mid-size businesses to cut costs, modernize systems, and plan their next stage of growth.</p>
-                <div class="d-flex flex-wrap gap-3">
-                  <a href="#contact" class="btn btn-brand btn-lg px-4">Book a free consultation</a>
-                  <button type="button" class="btn btn-outline-light btn-lg px-4" data-bs-toggle="modal" data-bs-target="#videoModal">
-                    <i class="bi bi-play-circle me-1" aria-hidden="true"></i> Watch our story
-                  </button>
-                </div>
-              </div>
+    <!-- ============ SPOTLIGHT HERO ============ -->
+    <header class="spot" id="spot">
+      <div class="container">
+        <div class="row align-items-center g-4 g-lg-5">
+          <div class="col-md-7">
+            <div class="spot-reason" id="spotReason"></div>
+            <h1 class="spot-title" id="spotTitle"></h1>
+            <div class="spot-meta" id="spotMeta"></div>
+            <div class="d-flex align-items-center gap-3 mb-3" id="spotScore"></div>
+            <p class="spot-overview" id="spotOverview"></p>
+            <div class="d-flex flex-wrap gap-2 mt-4">
+              <a class="btn btn-seat btn-lg px-4" id="spotReviews" href="#">Read reviews and rate</a>
+              <button type="button" class="btn btn-ghost btn-lg px-4" data-bs-toggle="modal" data-bs-target="#trailerModal" id="spotTrailer">
+                <i class="bi bi-play-fill" aria-hidden="true"></i> Watch trailer
+              </button>
             </div>
+          </div>
+          <div class="col-md-5">
+            <a class="spot-poster" id="spotPoster" href="#" aria-hidden="true" tabindex="-1"></a>
+          </div>
+        </div>
+
+        <!-- Featured this week: staff picks, then trending (see featuredThisWeek() in the script) -->
+        <div class="strip-head">
+          <h2>Featured this week</h2>
+          <p>Staff picks first, then the movies with the most reviews in the last 7 days</p>
+        </div>
+        <div class="spot-strip" id="spotStrip" role="group" aria-label="Featured this week"></div>
+      </div>
+    </header>
+
+    <!-- ============ BROWSE: filter chips + poster grid ============ -->
+    <section class="browse" id="browse">
+      <div class="container">
+        <div class="d-flex flex-wrap justify-content-between align-items-end gap-3 mb-4">
+          <div>
+            <h2 class="mb-1">Browse movies</h2>
+            <p class="text-slate mb-0" id="resultCount"></p>
+          </div>
+          <div class="chips" id="genreChips" aria-label="Filter by genre"></div>
+        </div>
+        <div class="row g-4 row-cols-2 row-cols-sm-3 row-cols-lg-5" id="movieGrid"></div>
+      </div>
+    </section>
+
+    <!-- ============ TOP RATED + LATEST REVIEWS ============ -->
+    <section class="lower" id="top-rated">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-lg-6">
+            <h2 class="mb-1">Top rated</h2>
+            <p class="text-slate">Ranked by the average of every member's rating.</p>
+            <ol class="list-unstyled mb-0" id="topList"></ol>
+          </div>
+          <div class="col-lg-6">
+            <h2 class="mb-1">Latest reviews</h2>
+            <p class="text-slate">What members wrote most recently.</p>
+            <div id="latestReviews"></div>
           </div>
         </div>
       </div>
+    </section>
+  </div>
 
-      <!-- Slide 2: results -->
-      <div class="carousel-item" data-bs-interval="6000">
-        <div class="hero-slide hero-slide-2">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-7 hero-text">
-                <p class="section-label text-white-50">Proven results</p>
-                <h2 class="display-4 fw-bold mb-4">38% average cost savings in the first year.</h2>
-                <p class="lead mb-4 text-white-50">Over 240 clients have used our fixed-price projects to find savings they can measure.</p>
-                <div class="d-flex flex-wrap gap-3">
-                  <a href="#work" class="btn btn-brand btn-lg px-4">See case studies</a>
-                  <a href="#pricing" class="btn btn-outline-light btn-lg px-4">View pricing</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 3: team -->
-      <div class="carousel-item" data-bs-interval="6000">
-        <div class="hero-slide hero-slide-3">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-7 hero-text">
-                <p class="section-label text-white-50">Senior people, every time</p>
-                <h2 class="display-4 fw-bold mb-4">A partner on every account, not a junior analyst.</h2>
-                <p class="lead mb-4 text-white-50">The people you meet in the first meeting are the people who do the work.</p>
-                <div class="d-flex flex-wrap gap-3">
-                  <a href="#team" class="btn btn-brand btn-lg px-4">Meet the team</a>
-                  <a href="#contact" class="btn btn-outline-light btn-lg px-4">Get a quote</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Previous / next arrows -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#heroSlider" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous slide</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#heroSlider" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next slide</span>
-    </button>
-  </header>
   {% endblock %}

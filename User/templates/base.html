@@ -3,99 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Meridian Partners - Business Consulting</title>
+  <title>MovieSite - What's playing and what people think</title>
 
-  <!-- Bootstrap CSS -->
+  <!-- Bootstrap CSS + Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap Icons (free icon font from the Bootstrap team) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+  <!-- Fonts: a tall, narrow cinema-sign face for headings, a very readable face for everything else -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Big+Shoulders+Display:wght@600;800;900&display=swap" rel="stylesheet">
   {% load static %}
-  <link href="{% static 'style.css' %}" rel="stylesheet">
-  
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
-<!-- data-bs-spy = scrollspy: highlights the nav link of the section you're viewing -->
-<body data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="80" tabindex="0">
+<body>
 
   <!-- ============ NAVBAR ============ -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top py-3" id="topNav">
+  <nav class="navbar navbar-expand-md navbar-dark site-nav sticky-top">
     <div class="container">
-      <a class="navbar-brand fw-bold fs-4" href="{% url 'home' %}">
-        <i class="bi bi-compass" aria-hidden="true"></i> Meridian
-      </a>
+      <a class="navbar-brand" href=""><i class="bi bi-ticket-perforated-fill me-1" aria-hidden="true"></i>MovieSite</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav"
-              aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+              aria-controls="mainNav" aria-expanded="false" aria-label="Open menu">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Services</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'portfolio' %}">Portfolio</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact</a></li>
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="#browse">Browse</a></li>
+          <li class="nav-item"><a class="nav-link" href="#top-rated">Top rated</a></li>
         </ul>
-        <a href="#contact" class="btn btn-brand ms-lg-3 mt-2 mt-lg-0">Get a quote</a>
+        <form class="d-flex mt-2 mt-md-0" id="navSearch" role="search">
+          <input class="form-control" type="search" id="navQuery" placeholder="Search by title" aria-label="Search by title">
+        </form>
       </div>
     </div>
   </nav>
 
-  <main>
-    {% block content %}
-    {% endblock %}
-  </main>
+  {% block content %}
+  {% endblock %}
+
+  <!-- =====================================================================
+       PAGE 2: MOVIE DETAIL  (Django: templates/movies/movie_detail.html)
+       Drawn by JavaScript when the address is #/movie/<id>
+       ===================================================================== -->
+  <div id="detailPage" class="d-none"></div>
 
   <!-- ============ FOOTER ============ -->
-  <footer class="bg-ink text-white-50 pt-5 pb-4">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-lg-4">
-          <p class="fw-bold fs-5 text-white"><i class="bi bi-compass" aria-hidden="true"></i> Meridian Partners</p>
-          <p class="small">Practical consulting for growing companies since 2011.</p>
-          <a href="#" class="fs-5 me-3" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
-          <a href="#" class="fs-5 me-3" aria-label="X"><i class="bi bi-twitter-x"></i></a>
-          <a href="#" class="fs-5" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
-        </div>
-        <div class="col-6 col-lg-2">
-          <p class="fw-semibold text-white">Company</p>
-          <ul class="list-unstyled small">
-            <li class="mb-1"><a href="#about">About</a></li>
-            <li class="mb-1"><a href="#team">Team</a></li>
-            <li class="mb-1"><a href="#">Careers</a></li>
-          </ul>
-        </div>
-        <div class="col-6 col-lg-2">
-          <p class="fw-semibold text-white">Services</p>
-          <ul class="list-unstyled small">
-            <li class="mb-1"><a href="#services">Strategy</a></li>
-            <li class="mb-1"><a href="#services">Operations</a></li>
-            <li class="mb-1"><a href="#services">Technology</a></li>
-          </ul>
-        </div>
-        <div class="col-lg-4">
-          <p class="fw-semibold text-white">Newsletter</p>
-          <p class="small">One useful idea for business owners, once a month.</p>
-          <form class="input-group" id="newsForm">
-            <label for="newsEmail" class="visually-hidden">Email address</label>
-            <input type="email" class="form-control" id="newsEmail" placeholder="you@company.com" required>
-            <button class="btn btn-brand" type="submit">Subscribe</button>
-          </form>
-        </div>
-      </div>
-      <hr class="border-secondary my-4">
-      <p class="small text-center mb-0">&copy; 2026 Meridian Partners. All rights reserved.</p>
+  <footer>
+    <div class="container d-flex flex-wrap justify-content-between gap-2 small">
+      <span>&copy; 2026 MovieSite, a CMIS 211 semester project</span>
+      <span><a href="#browse">Browse</a> &nbsp; <a href="#top-rated">Top rated</a></span>
     </div>
   </footer>
 
-  <!-- ============ VIDEO MODAL ============ -->
-  <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoTitle" aria-hidden="true">
+  <!-- ============ TRAILER MODAL ============ -->
+  <div class="modal fade" id="trailerModal" tabindex="-1" aria-labelledby="trailerTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content bg-dark">
+      <div class="modal-content bg-black">
         <div class="modal-header border-0">
-          <h5 class="modal-title text-white" id="videoTitle">Our story</h5>
+          <h5 class="modal-title text-white display-font fs-3" id="trailerTitle">Trailer</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body p-0">
           <div class="ratio ratio-16x9">
-            <video id="storyVideo" controls preload="metadata">
+            <!-- A sample clip stands in for the real trailer -->
+            <video id="trailerVideo" controls preload="metadata">
               <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4">
               <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" type="video/webm">
               Your browser doesn't support the video tag.
@@ -106,95 +77,525 @@
     </div>
   </div>
 
-  <!-- ============ TOAST (message sent) ============ -->
-  <div class="toast-container position-fixed bottom-0 start-0 p-3">
-    <div id="sentToast" class="toast text-bg-success border-0" role="status" aria-live="polite" aria-atomic="true">
+  <!-- ============ TOAST ============ -->
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="msgToast" class="toast align-items-center border-0 text-white" style="background: var(--night)" role="status" aria-live="polite" aria-atomic="true">
       <div class="d-flex">
-        <div class="toast-body" id="toastText">Thanks! We'll be in touch within one business day.</div>
+        <div class="toast-body" id="toastText"></div>
         <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
     </div>
   </div>
 
-  <!-- Back to top -->
-  <a href="#" id="toTop" class="btn btn-brand rounded-circle shadow" aria-label="Back to top">
-    <i class="bi bi-arrow-up" aria-hidden="true"></i>
-  </a>
-
-  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Our JavaScript -->
   <script>
-    const nav = document.getElementById('topNav');
-    const toTop = document.getElementById('toTop');
+    /* =================================================================
+       1. DATA: stands in for the database (Django: Movie, Genre, Review)
+       ================================================================= */
+    const ME = 'you';   // the "logged-in" user in this demo
 
-    // 1. Solid navbar + back-to-top button after scrolling down
-    function onScroll() {
-      const down = window.scrollY > 60;
-      nav.classList.toggle('scrolled', down);
-      toTop.style.display = window.scrollY > 600 ? 'inline-flex' : 'none';
+    // featured: true = a staff pick (Django: an is_featured checkbox in the admin)
+    const movies = [
+      { id: 1,  title: 'Inception', year: 2010, runtime: '2h 28m', genres: ['Sci-Fi', 'Thriller'],
+        overview: "A thief who steals secrets from people's dreams is offered one last job: planting an idea instead." },
+      { id: 2,  title: 'Spirited Away', year: 2001, runtime: '2h 5m', genres: ['Animation', 'Fantasy'], featured: true,
+        overview: 'A ten-year-old girl wanders into a world of spirits and must work in a bathhouse to free her parents.' },
+      { id: 3,  title: 'The Matrix', year: 1999, runtime: '2h 16m', genres: ['Sci-Fi', 'Action'],
+        overview: 'A hacker learns that the world he lives in is a simulation, and joins the people fighting it.' },
+      { id: 4,  title: 'Parasite', year: 2019, runtime: '2h 12m', genres: ['Thriller', 'Drama'],
+        overview: 'A poor family schemes its way into the household of a wealthy one, until a secret in the basement surfaces.' },
+      { id: 5,  title: 'The Grand Budapest Hotel', year: 2014, runtime: '1h 39m', genres: ['Comedy', 'Drama'], featured: true,
+        overview: 'A legendary concierge and his young lobby boy are drawn into the theft of a priceless painting.' },
+      { id: 6,  title: 'Mad Max: Fury Road', year: 2015, runtime: '2h', genres: ['Action', 'Sci-Fi'],
+        overview: 'In a desert wasteland, a rebel driver and a drifter flee a warlord across hundreds of miles of sand.' },
+      { id: 7,  title: 'Coco', year: 2017, runtime: '1h 45m', genres: ['Animation', 'Family'],
+        overview: 'A boy who dreams of becoming a musician crosses into the Land of the Dead to find his great-great-grandfather.' },
+      { id: 8,  title: 'Get Out', year: 2017, runtime: '1h 44m', genres: ['Horror', 'Thriller'],
+        overview: "A young man visits his girlfriend's family for the weekend and finds that their welcome hides something." },
+      { id: 9,  title: 'La La Land', year: 2016, runtime: '2h 8m', genres: ['Drama', 'Romance'],
+        overview: 'A jazz pianist and an aspiring actress fall in love while chasing their dreams in Los Angeles.' },
+      { id: 10, title: 'Interstellar', year: 2014, runtime: '2h 49m', genres: ['Sci-Fi', 'Drama'],
+        overview: "With Earth's crops failing, a former pilot leads a mission through a wormhole to find humanity a new home." },
+    ];
+
+    // Review dates as 'YYYY-MM-DD'. daysAgo() keeps this demo fresh whenever you open it:
+    // most reviews are 1-3 days old, Inception's are 12 days old (so it isn't "trending").
+    function isoDay(d) {
+      return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
     }
-    window.addEventListener('scroll', onScroll);
-    onScroll();
+    function daysAgo(n) { const d = new Date(); d.setDate(d.getDate() - n); return isoDay(d); }
 
-    // 2. Close the mobile menu after tapping a link
-    document.querySelectorAll('#mainNav .nav-link').forEach(link => {
+    // Newest first, like Review.Meta.ordering = ['-created_at']
+    let reviews = [
+      { movieId: 7,  user: 'maya',   rating: 5, comment: 'Bring tissues. The last song got the whole room.', created: daysAgo(1) },
+      { movieId: 10, user: 'sam',    rating: 4, comment: 'The docking scene alone is worth it.', created: daysAgo(1) },
+      { movieId: 9,  user: 'maya',   rating: 3, comment: 'Great music, slow middle.', created: daysAgo(1) },
+      { movieId: 4,  user: 'jordan', rating: 4, comment: '', created: daysAgo(2) },
+      { movieId: 4,  user: 'sam',    rating: 5, comment: 'Funny, then terrifying. The tone shifts are incredible.', created: daysAgo(2) },
+      { movieId: 3,  user: 'jordan', rating: 5, comment: 'Holds up better than I expected.', created: daysAgo(2) },
+      { movieId: 2,  user: 'maya',   rating: 5, comment: '', created: daysAgo(3) },
+      { movieId: 2,  user: 'sam',    rating: 5, comment: 'Every frame is beautiful.', created: daysAgo(3) },
+      { movieId: 1,  user: 'jordan', rating: 4, comment: 'Confusing the first time, brilliant the second.', created: daysAgo(12) },
+      { movieId: 1,  user: 'maya',   rating: 5, comment: 'Still thinking about the ending.', created: daysAgo(12) },
+    ];
+
+    const FEATURED_COUNT = 6;   // how many movies the "Featured this week" strip shows
+    const RATING_WORDS = ['', 'Poor', 'Fair', 'Good', 'Very good', 'Excellent'];
+    const allGenres = [...new Set(movies.flatMap(m => m.genres))].sort();
+    const watchlist = new Set();
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* =================================================================
+       2. HELPERS (Django: the _stars, _poster, _movie_card include files)
+       ================================================================= */
+
+    // Escape anything a user typed before putting it in the page (Django does this for you)
+    function esc(text) {
+      return String(text).replace(/[&<>"']/g, c =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    }
+
+    const movieById = id => movies.find(m => m.id === id);
+    const reviewsFor = id => reviews.filter(r => r.movieId === id);
+    const plural = (n, word) => `${n} ${word}${n === 1 ? '' : 's'}`;
+
+    // Average + count (Django: annotate(avg_rating=Avg(...), review_count=Count(...)))
+    function stats(id) {
+      const list = reviewsFor(id);
+      const avg = list.length ? list.reduce((s, r) => s + r.rating, 0) / list.length : 0;
+      return { avg, count: list.length };
+    }
+
+    function stars(value) {
+      let html = `<span class="stars" aria-label="${value.toFixed(1)} out of 5 stars">`;
+      for (let i = 1; i <= 5; i++) {
+        const icon = value >= i ? 'bi-star-fill' : value >= i - 0.5 ? 'bi-star-half' : 'bi-star';
+        html += `<i class="bi ${icon}" aria-hidden="true"></i>`;
+      }
+      return html + '</span>';
+    }
+
+    // '2026-11-03' -> a local date (Date.parse on a plain date can land on the day before)
+    function toDate(iso) { const [y, m, d] = iso.split('-').map(Number); return new Date(y, m - 1, d); }
+    const shortDate = iso => toDate(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+    const hue = id => (id * 47) % 360;
+    const avatarColor = name => `hsl(${(name.charCodeAt(0) * 37) % 360} 45% 38%)`;
+
+    function poster(movie, extra = '') {
+      return `
+        <div class="poster ${extra}" style="--hue:${hue(movie.id)}" aria-hidden="true">
+          <div class="poster-title">${esc(movie.title)}</div>
+          <div class="poster-year">${movie.year}</div>
+        </div>`;
+    }
+
+    function showToast(text) {
+      document.getElementById('toastText').textContent = text;
+      bootstrap.Toast.getOrCreateInstance(document.getElementById('msgToast')).show();
+    }
+
+    /* =================================================================
+       3. FEATURED THIS WEEK + SPOTLIGHT HERO
+          Rule: staff picks first, then trending (most reviews in the last
+          7 days), then top rated, so the strip is never empty.
+          Django: the home view does the same with is_featured and
+          Count('reviews', filter=Q(reviews__created_at__gte=week_ago))
+       ================================================================= */
+    function reviewsThisWeek(id) {
+      const weekAgo = new Date(); weekAgo.setDate(weekAgo.getDate() - 7);
+      return reviews.filter(r => r.movieId === id && toDate(r.created) >= weekAgo).length;
+    }
+
+    function featuredThisWeek() {
+      const list = [];
+      const add = (movie, icon, reason) => {
+        if (list.length < FEATURED_COUNT && !list.some(f => f.movie.id === movie.id)) list.push({ movie, icon, reason });
+      };
+
+      // 1. Staff picks
+      movies.filter(m => m.featured).forEach(m => add(m, 'bi-award-fill', 'Staff pick'));
+
+      // 2. Trending: most reviews in the past 7 days (ties go to the higher average)
+      movies.filter(m => reviewsThisWeek(m.id) > 0)
+        .sort((a, b) => reviewsThisWeek(b.id) - reviewsThisWeek(a.id) || stats(b.id).avg - stats(a.id).avg)
+        .forEach(m => add(m, 'bi-graph-up-arrow', `Trending: ${plural(reviewsThisWeek(m.id), 'review')} this week`));
+
+      // 3. Quiet week? Fill the rest with the top rated
+      movies.filter(m => stats(m.id).count)
+        .sort((a, b) => stats(b.id).avg - stats(a.id).avg)
+        .forEach(m => add(m, 'bi-star-fill', 'Top rated'));
+
+      return list;
+    }
+
+    let spotlightId = null;   // which movie is in the spotlight
+
+    function renderSpotlight(animate = false) {
+      const featured = featuredThisWeek();
+      if (!featured.some(f => f.movie.id === spotlightId)) spotlightId = featured[0].movie.id;
+      const { movie, icon, reason } = featured.find(f => f.movie.id === spotlightId);
+      const { avg, count } = stats(movie.id);
+
+      document.getElementById('spot').style.setProperty('--hue', hue(movie.id));
+      document.getElementById('spotReason').innerHTML = `<i class="bi ${icon} me-1" aria-hidden="true"></i>${reason}`;
+      document.getElementById('spotTitle').textContent = movie.title;
+      document.getElementById('spotMeta').innerHTML =
+        `<span>${movie.year}</span><span>${movie.runtime}</span><span>${movie.genres.join(', ')}</span>`;
+      document.getElementById('spotScore').innerHTML = count
+        ? `<span class="spot-score">${avg.toFixed(1)}</span>
+           <div>${stars(avg)}<div class="small" style="color:rgba(255,255,255,.65)">from ${plural(count, 'member rating')}</div></div>`
+        : '<span style="color:rgba(255,255,255,.7)">Not rated yet. Be the first.</span>';
+      document.getElementById('spotOverview').textContent = movie.overview;
+      document.getElementById('spotReviews').href = `#/movie/${movie.id}`;
+      document.getElementById('spotTrailer').dataset.title = movie.title;
+
+      const big = document.getElementById('spotPoster');
+      big.href = `#/movie/${movie.id}`;
+      big.innerHTML = poster(movie);
+      if (animate && !reduceMotion) { big.classList.remove('swap'); void big.offsetWidth; big.classList.add('swap'); }
+
+      document.getElementById('spotStrip').innerHTML = featured.map(f => `
+        <button type="button" data-id="${f.movie.id}" aria-pressed="${f.movie.id === spotlightId}">
+          ${poster(f.movie)}
+          <span class="strip-title">${esc(f.movie.title)}</span>
+          <span class="strip-reason"><i class="bi ${f.icon}" aria-hidden="true"></i> ${f.reason}</span>
+        </button>`).join('');
+      document.querySelectorAll('#spotStrip button').forEach(b =>
+        b.addEventListener('click', () => { spotlightId = Number(b.dataset.id); renderSpotlight(true); }));
+    }
+
+    /* =================================================================
+       4. BROWSE GRID with genre chips and search (Django: movie_list view)
+       ================================================================= */
+    let currentGenre = 'All';
+    let currentSearch = '';
+
+    function buildChips() {
+      document.getElementById('genreChips').innerHTML = ['All', ...allGenres].map(g =>
+        `<button type="button" class="chip" data-genre="${g}" aria-pressed="${g === currentGenre}">${g}</button>`).join('');
+      document.querySelectorAll('.chip').forEach(c =>
+        c.addEventListener('click', () => { currentGenre = c.dataset.genre; currentSearch = ''; renderGrid(); }));
+    }
+
+    function renderGrid() {
+      const q = currentSearch.toLowerCase();
+      const list = movies.filter(m =>
+        (currentGenre === 'All' || m.genres.includes(currentGenre)) &&
+        (!q || m.title.toLowerCase().includes(q)));
+
+      document.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', c.dataset.genre === currentGenre));
+
+      let summary = plural(list.length, 'movie');
+      if (currentGenre !== 'All') summary += ` in ${currentGenre}`;
+      if (currentSearch) summary += ` matching "${esc(currentSearch)}". <a href="#browse" id="clearSearch">Show all</a>`;
+      document.getElementById('resultCount').innerHTML = summary;
+
+      document.getElementById('movieGrid').innerHTML = list.length ? list.map(m => {
+        const { avg, count } = stats(m.id);
+        return `
+          <div class="col">
+            <a class="movie-link" href="#/movie/${m.id}">
+              ${poster(m)}
+              <h3>${esc(m.title)}</h3>
+              <div class="movie-meta">${count ? `${stars(avg)} ${avg.toFixed(1)}` : 'Not rated yet'}</div>
+            </a>
+          </div>`;
+      }).join('') : '<p class="text-slate">No movies match. Try another title or genre.</p>';
+
+      const clear = document.getElementById('clearSearch');
+      if (clear) clear.addEventListener('click', () => { currentSearch = ''; renderGrid(); });
+    }
+
+    /* =================================================================
+       5. TOP RATED + LATEST REVIEWS
+       ================================================================= */
+    function renderLower() {
+      const ranked = movies.filter(m => stats(m.id).count)
+        .sort((a, b) => stats(b.id).avg - stats(a.id).avg || stats(b.id).count - stats(a.id).count)
+        .slice(0, 5);
+
+      document.getElementById('topList').innerHTML = ranked.map((m, i) => {
+        const { avg, count } = stats(m.id);
+        return `
+          <li class="rank-item">
+            <span class="rank-num">${i + 1}</span>
+            ${poster(m, 'poster-sm')}
+            <div class="flex-grow-1">
+              <a href="#/movie/${m.id}">${esc(m.title)}</a>
+              <div class="movie-meta">${m.year}, ${m.genres.join(' and ')}</div>
+            </div>
+            <div class="text-end">${stars(avg)}<div class="movie-meta">${avg.toFixed(1)} from ${plural(count, 'rating')}</div></div>
+          </li>`;
+      }).join('');
+
+      document.getElementById('latestReviews').innerHTML = reviews.filter(r => r.comment).slice(0, 4).map(r => {
+        const m = movieById(r.movieId);
+        return `
+          <div class="quote">
+            ${stars(r.rating)}
+            <p>"${esc(r.comment)}"</p>
+            <small><strong>${esc(r.user)}</strong> on <a href="#/movie/${m.id}">${esc(m.title)}</a>, ${shortDate(r.created)}</small>
+          </div>`;
+      }).join('');
+    }
+
+    function renderHome() {
+      renderGrid();
+      renderLower();
+    }
+
+    /* =================================================================
+       6. DETAIL PAGE + REVIEW FORM (Django: movie_detail view + template)
+       ================================================================= */
+    function renderDetail(id) {
+      const movie = movieById(id);
+      const page = document.getElementById('detailPage');
+
+      if (!movie) {   // Django: raise Http404
+        page.innerHTML = `
+          <section class="detail-head text-center">
+            <div class="container py-5">
+              <h1 class="detail-title">Movie not found</h1>
+              <p>There's no movie at this address.</p>
+              <a href="#browse" class="btn btn-seat">Browse movies</a>
+            </div>
+          </section>`;
+        return;
+      }
+      document.title = `${movie.title} - MovieSite`;
+
+      const { avg, count } = stats(movie.id);
+      const list = reviewsFor(movie.id);
+      const mine = list.find(r => r.user === ME);
+      const saved = watchlist.has(movie.id);
+
+      let starRadios = '';
+      for (let n = 5; n >= 1; n--) {
+        starRadios += `
+          <input type="radio" name="rating" id="rate${n}" value="${n}" ${mine && mine.rating === n ? 'checked' : ''}>
+          <label for="rate${n}" title="${n} stars: ${RATING_WORDS[n]}"><i class="bi bi-star-fill" aria-hidden="true"></i><span class="visually-hidden">${n} stars, ${RATING_WORDS[n]}</span></label>`;
+      }
+
+      const breakdown = [5, 4, 3, 2, 1].map(n => {
+        const num = list.filter(r => r.rating === n).length;
+        const pct = count ? Math.round(num / count * 100) : 0;
+        return `
+          <div class="d-flex align-items-center gap-2 mb-2 small">
+            <span style="width:3.2rem">${plural(n, 'star')}</span>
+            <div class="bar flex-grow-1"><span style="width:${pct}%"></span></div>
+            <span class="text-slate" style="width:1.2rem">${num}</span>
+          </div>`;
+      }).join('');
+
+      const reviewList = list.map(r => `
+        <div class="review ${r.user === ME ? 'mine' : ''}">
+          <div class="avatar" style="background:${avatarColor(r.user)}" aria-hidden="true">${esc(r.user[0].toUpperCase())}</div>
+          <div>
+            <div><strong>${r.user === ME ? 'You' : esc(r.user)}</strong> ${stars(r.rating)}</div>
+            <div class="small text-slate">${shortDate(r.created)}${r.edited ? ', edited' : ''}</div>
+            ${r.comment ? `<p class="mb-0 mt-2">${esc(r.comment).replace(/\n/g, '<br>')}</p>` : ''}
+          </div>
+        </div>`).join('') || '<p class="text-slate mb-0">No reviews yet. Yours would be the first.</p>';
+
+      const similar = movies.filter(m => m.id !== movie.id && m.genres.some(g => movie.genres.includes(g))).slice(0, 4);
+
+      page.innerHTML = `
+        <header class="detail-head">
+          <div class="container">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb small mb-4">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#browse">Movies</a></li>
+                <li class="breadcrumb-item active" aria-current="page">${esc(movie.title)}</li>
+              </ol>
+            </nav>
+            <div class="row g-4 g-lg-5 align-items-end">
+              <div class="col-6 col-md-3">${poster(movie)}</div>
+              <div class="col-md-9">
+                <h1 class="detail-title mb-0">${esc(movie.title)}</h1>
+                <div class="facts">
+                  <span>${movie.year}</span><span>${movie.runtime}</span><span>${movie.genres.join(', ')}</span>
+                </div>
+                <div class="d-flex align-items-center gap-3 mb-3">
+                  ${count
+                    ? `<span class="score-big">${avg.toFixed(1)}</span>
+                       <div>${stars(avg)}<div class="small" style="color:rgba(255,255,255,.7)">from ${plural(count, 'member rating')}</div></div>`
+                    : '<span style="color:rgba(255,255,255,.7)">Nobody has rated this yet.</span>'}
+                </div>
+                <p style="max-width:40rem;color:rgba(255,255,255,.82)">${esc(movie.overview)}</p>
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                  <button type="button" class="btn btn-ghost" data-bs-toggle="modal" data-bs-target="#trailerModal" data-title="${esc(movie.title)}">
+                    <i class="bi bi-play-fill" aria-hidden="true"></i> Watch trailer
+                  </button>
+                  <button type="button" class="btn btn-ghost" id="watchBtn" aria-pressed="${saved}">
+                    <i class="bi ${saved ? 'bi-bookmark-check-fill text-bulb' : 'bi-bookmark'}" aria-hidden="true"></i>
+                    ${saved ? 'On your watchlist' : 'Add to watchlist'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="detail-body">
+          <div class="container">
+            <div class="row g-4 g-lg-5">
+              <div class="col-lg-8">
+
+                <!-- Rate & comment form -->
+                <div class="panel mb-4" id="rate">
+                  <h2 class="mb-3">${mine ? 'Your review' : 'Rate this movie'}</h2>
+                  <form id="reviewForm" novalidate>
+                    <fieldset class="mb-3">
+                      <legend class="fs-6 fw-bold mb-1">Your rating</legend>
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="star-input">${starRadios}</div>
+                        <span class="text-slate" id="ratingWord">${mine ? RATING_WORDS[mine.rating] : ''}</span>
+                      </div>
+                      <div class="invalid-feedback" id="ratingError">Choose from 1 to 5 stars to post your review.</div>
+                    </fieldset>
+                    <div class="mb-3">
+                      <label for="comment" class="form-label fw-bold">Comment <span class="fw-normal text-slate">(optional)</span></label>
+                      <textarea class="form-control" id="comment" rows="4" maxlength="500"
+                        placeholder="What worked, what didn't? Keep it spoiler-free.">${mine ? esc(mine.comment) : ''}</textarea>
+                      <div class="form-text text-end"><span id="charCount">${mine ? mine.comment.length : 0}</span> of 500 characters</div>
+                    </div>
+                    <div class="d-flex flex-wrap align-items-center gap-3">
+                      <button type="submit" class="btn btn-seat px-4">${mine ? 'Save changes' : 'Post review'}</button>
+                      ${mine ? '<button type="button" class="btn btn-link text-slate p-0" id="deleteBtn">Delete review</button>' : ''}
+                    </div>
+                  </form>
+                </div>
+
+                <div class="panel">
+                  <h2 class="mb-2">${list.length ? plural(list.length, 'review') : 'Reviews'}</h2>
+                  ${reviewList}
+                </div>
+              </div>
+
+              <aside class="col-lg-4">
+                <div class="panel mb-4">
+                  <h2 class="mb-3">How people rated it</h2>
+                  ${breakdown}
+                </div>
+                ${similar.length ? `
+                <div class="panel">
+                  <h2 class="mb-3">If you liked this</h2>
+                  <div class="row row-cols-2 g-3">
+                    ${similar.map(m => `
+                      <div class="col"><a class="movie-link" href="#/movie/${m.id}">${poster(m, 'poster-md')}<h3 class="small">${esc(m.title)}</h3></a></div>`).join('')}
+                  </div>
+                </div>` : ''}
+              </aside>
+            </div>
+          </div>
+        </main>`;
+
+      // ---- Form behavior ----
+      const form = document.getElementById('reviewForm');
+      const comment = document.getElementById('comment');
+
+      form.querySelectorAll('input[name="rating"]').forEach(radio =>
+        radio.addEventListener('change', () => {
+          document.getElementById('ratingWord').textContent = RATING_WORDS[radio.value];
+          document.getElementById('ratingError').classList.remove('d-block');
+        }));
+
+      comment.addEventListener('input', () =>
+        document.getElementById('charCount').textContent = comment.value.length);
+
+      // Submitting = POST in Django: validate, save (create or update), redirect back
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        const picked = form.querySelector('input[name="rating"]:checked');
+        if (!picked) { document.getElementById('ratingError').classList.add('d-block'); return; }
+        const rating = Number(picked.value);
+        const text = comment.value.trim();
+
+        if (mine) {   // one review per member per movie: update it
+          Object.assign(mine, { rating, comment: text, edited: true });
+          showToast('Changes saved.');
+        } else {
+          reviews.unshift({ movieId: movie.id, user: ME, rating, comment: text, created: isoDay(new Date()) });
+          showToast('Review posted.');
+        }
+        renderDetail(movie.id);
+        renderHome();
+        document.getElementById('rate').scrollIntoView({ block: 'center' });
+      });
+
+      const del = document.getElementById('deleteBtn');
+      if (del) del.addEventListener('click', () => {
+        reviews = reviews.filter(r => r !== mine);
+        showToast('Review deleted.');
+        renderDetail(movie.id);
+        renderHome();
+        document.getElementById('rate').scrollIntoView({ block: 'center' });
+      });
+
+      document.getElementById('watchBtn').addEventListener('click', () => {
+        if (watchlist.has(movie.id)) { watchlist.delete(movie.id); showToast('Removed from your watchlist.'); }
+        else { watchlist.add(movie.id); showToast('Added to your watchlist.'); }
+        renderDetail(movie.id);
+      });
+    }
+
+    /* =================================================================
+       7. PAGE SWITCHING (Django: urls.py picks the view)
+          #/movie/3 -> detail page; anything else -> homepage
+       ================================================================= */
+    function route() {
+      const match = location.hash.match(/^#\/movie\/(\d+)$/);
+      const home = document.getElementById('homePage');
+      const detail = document.getElementById('detailPage');
+
+      if (match) {
+        renderDetail(Number(match[1]));
+        home.classList.add('d-none');
+        detail.classList.remove('d-none');
+        window.scrollTo(0, 0);
+      } else {
+        document.title = "MovieSite - What's playing and what people think";
+        detail.classList.add('d-none');
+        home.classList.remove('d-none');
+        renderSpotlight();   // ratings may have changed
+        const target = location.hash.length > 1 && document.querySelector(location.hash);
+        if (target) target.scrollIntoView(); else window.scrollTo(0, 0);
+      }
+    }
+    window.addEventListener('hashchange', route);
+
+    /* =================================================================
+       8. SITE-WIDE: search, mobile menu, trailer modal
+       ================================================================= */
+    document.getElementById('navSearch').addEventListener('submit', e => {
+      e.preventDefault();
+      currentSearch = document.getElementById('navQuery').value.trim();
+      currentGenre = 'All';
+      renderGrid();
+      if (location.hash === '#browse') route(); else location.hash = '#browse';
+    });
+
+    document.querySelectorAll('#mainNav .nav-link').forEach(link =>
       link.addEventListener('click', () => {
         const menu = bootstrap.Collapse.getInstance(document.getElementById('mainNav'));
         if (menu) menu.hide();
-      });
+      }));
+
+    const trailerModal = document.getElementById('trailerModal');
+    trailerModal.addEventListener('show.bs.modal', e => {
+      document.getElementById('trailerTitle').textContent = `${e.relatedTarget.dataset.title}: trailer`;
+    });
+    trailerModal.addEventListener('hidden.bs.modal', () => {
+      document.getElementById('trailerVideo').pause();
     });
 
-    // 3. Count the stats up when they scroll into view (runs once)
-    const counters = document.querySelectorAll('[data-count]');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        const el = entry.target;
-        const target = Number(el.dataset.count);
-        const suffix = el.dataset.suffix || '';
-        let current = 0;
-        const step = Math.max(1, Math.ceil(target / 60));
-        const timer = setInterval(() => {
-          current = Math.min(current + step, target);
-          el.textContent = current + suffix;
-          if (current === target) clearInterval(timer);
-        }, 20);
-        observer.unobserve(el);
-      });
-    }, { threshold: 0.6 });
-    counters.forEach(c => observer.observe(c));
-
-    // 4. Video modal: pause the hero slider while it's open, and pause the video when it closes
-    const heroSlider = bootstrap.Carousel.getOrCreateInstance(document.getElementById('heroSlider'));
-    const videoModal = document.getElementById('videoModal');
-    videoModal.addEventListener('shown.bs.modal', () => heroSlider.pause());
-    videoModal.addEventListener('hidden.bs.modal', () => {
-      document.getElementById('storyVideo').pause();
-      heroSlider.cycle();
-    });
-
-    // 5. Forms: validate, then show a toast instead of sending anywhere
-    const toast = () => bootstrap.Toast.getOrCreateInstance(document.getElementById('sentToast'));
-
-    document.getElementById('contactForm').addEventListener('submit', e => {
-      e.preventDefault();
-      const form = e.target;
-      form.classList.add('was-validated');
-      if (!form.checkValidity()) return;
-      document.getElementById('toastText').textContent = "Thanks! We'll be in touch within one business day.";
-      toast().show();
-      form.reset();
-      form.classList.remove('was-validated');
-    });
-
-    document.getElementById('newsForm').addEventListener('submit', e => {
-      e.preventDefault();
-      document.getElementById('toastText').textContent = "You're subscribed. Watch your inbox!";
-      toast().show();
-      e.target.reset();
-    });
+    // Start up
+    buildChips();
+    renderHome();
+    route();
   </script>
 </body>
 </html>
