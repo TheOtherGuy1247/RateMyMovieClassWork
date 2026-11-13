@@ -76,6 +76,8 @@ WSGI_APPLICATION = 'RateMyMovie.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
+AUTH_USER_MODEL = 'User.User'
+
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get('db_Engine'),
