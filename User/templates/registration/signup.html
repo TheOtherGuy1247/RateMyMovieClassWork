@@ -1,0 +1,234 @@
+{% comment %}
+  Sign-up page used by the signup view (accounts/views.py).
+
+  What the view gives this template:
+    form   SignUpForm (accounts/forms.py): form.username, form.email,
+           form.password1 (password), form.password2 (confirm), form.errors
+    next   where to send the user after signing up (e.g. the movie they wanted to rate)
+
+  Same layout and styles as login.html. It's a full page on its own (no {% extends %}).
+{% endcomment %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create an account - MovieSite</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Big+Shoulders+Display:wght@800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --night: #121a33;
+      --seat: #c8203a;
+      --seat-dark: #a3172d;
+      --bulb: #ffc94a;
+      --screen: #f4f5f8;
+      --slate: #5b6478;
+      --line: #dde0e8;
+      --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+      --body: "Atkinson Hyperlegible", system-ui, sans-serif;
+    }
+    body { font-family: var(--body); background: var(--screen); color: var(--night); min-height: 100vh; }
+    a { color: var(--seat); }
+    a:hover { color: var(--seat-dark); }
+    :focus-visible { outline: 3px solid var(--bulb); outline-offset: 2px; }
+
+    .auth { display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+
+    /* ---------- Left: the dark "theater" side ---------- */
+    .auth-side {
+      background: radial-gradient(ellipse 70% 60% at 70% 45%, #26345f 0%, var(--night) 70%);
+      color: #fff;
+      padding: 2.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .brand { font-family: var(--display); font-weight: 900; font-size: 1.75rem; color: #fff; text-decoration: none; }
+    .brand i { color: var(--bulb); }
+    .brand:hover { color: #fff; }
+    .side-copy { margin-top: auto; max-width: 26rem; }
+    .side-copy h2 { font-family: var(--display); font-weight: 900; font-size: 3.25rem; line-height: .95; text-transform: uppercase; }
+    .side-copy p { color: rgba(255,255,255,.75); font-size: 1.1rem; }
+
+    /* A small fanned stack of posters */
+    .stack { position: relative; height: 260px; margin: 2.5rem 0 3rem 1rem; }
+    .stack .poster {
+      position: absolute; width: 150px; aspect-ratio: 2 / 3; border-radius: 4px; padding: .7rem;
+      display: flex; flex-direction: column; justify-content: flex-end; color: #fff;
+      font-family: var(--display); font-weight: 900; font-size: 1.2rem; line-height: .95; text-transform: uppercase;
+      background: linear-gradient(to top, rgba(0,0,0,.55), transparent 55%),
+                  linear-gradient(165deg, hsl(var(--hue) 60% 46%), hsl(calc(var(--hue) + 35) 65% 18%));
+      box-shadow: 0 24px 48px -16px rgba(0,0,0,.7);
+    }
+    .stack .p1 { --hue: 94;  left: 0;     top: 30px; transform: rotate(-8deg); }
+    .stack .p2 { --hue: 188; left: 110px; top: 0;    transform: rotate(2deg); z-index: 1; }
+    .stack .p3 { --hue: 302; left: 220px; top: 36px; transform: rotate(9deg); }
+
+    /* ---------- Right: the form ---------- */
+    .auth-main { display: flex; align-items: center; justify-content: center; padding: 2.5rem 1.5rem; }
+    .auth-card { width: 100%; max-width: 24rem; }
+    .auth-card h1 { font-family: var(--display); font-weight: 900; font-size: 3rem; line-height: 1; margin-bottom: .35rem; }
+    .auth-card .lead-in { color: var(--slate); margin-bottom: 1.75rem; }
+
+    .form-label { font-weight: 700; }
+    .form-control { padding: .7rem .9rem; border-color: #cfd4de; }
+    .form-control:focus { border-color: var(--night); box-shadow: 0 0 0 3px rgba(255,201,74,.45); }
+    .password-wrap { position: relative; }
+    .password-wrap .form-control { padding-right: 3rem; }
+    /* Bootstrap puts a red icon inside invalid inputs; in password boxes it would cover the eye button */
+    .password-wrap .form-control.is-invalid { background-image: none; }
+    .toggle-pw {
+      position: absolute; right: .35rem; top: 50%; transform: translateY(-50%);
+      border: 0; background: none; color: var(--slate); padding: .4rem .6rem; border-radius: 6px;
+    }
+    .toggle-pw:hover { color: var(--night); }
+
+    .btn-seat { background: var(--seat); border-color: var(--seat); color: #fff; font-weight: 700; padding: .75rem; }
+    .btn-seat:hover, .btn-seat:focus { background: var(--seat-dark); border-color: var(--seat-dark); color: #fff; }
+
+    .alert-login { background: #fdecef; border: 1px solid #f5c2cb; color: #7a1222; }
+    .alert-next { background: #fff7e0; border: 1px solid #f3dfa4; color: #5b4300; }
+
+    .switch { color: var(--slate); margin-top: 1.5rem; }
+
+    /* Hints under a field (username rules, password rules) */
+    .form-text { color: var(--slate); font-size: .82rem; }
+    .form-text ul { padding-left: 1.1rem; margin: .25rem 0 0; }
+
+    @media (max-width: 860px) {
+      .auth { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+      .auth-side { padding: 1.25rem 1.5rem; }
+      .side-copy, .stack { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="auth">
+
+    <!-- ============ LEFT SIDE ============ -->
+    <aside class="auth-side">
+      <a class="brand" href="{% url 'home' %}"><i class="bi bi-ticket-perforated-fill me-1" aria-hidden="true"></i>MovieSite</a>
+      <div class="side-copy">
+        <div class="stack" aria-hidden="true">
+          <div class="poster p1">Spirited Away</div>
+          <div class="poster p2">Parasite</div>
+          <div class="poster p3">Coco</div>
+        </div>
+        <h2>Grab a seat.</h2>
+        <p>A free account lets you rate any movie, write reviews, and keep a watchlist.</p>
+      </div>
+    </aside>
+
+    <!-- ============ RIGHT SIDE: SIGN-UP FORM ============ -->
+    <main class="auth-main">
+      <div class="auth-card">
+        <h1>Create an account</h1>
+        <p class="lead-in">It takes less than a minute.</p>
+
+        {# Errors about the whole form rather than one field (rare here) #}
+        {% if form.non_field_errors %}
+          <div class="alert alert-login small" role="alert">
+            {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+          </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'signup' %}" novalidate>
+          {% csrf_token %}
+
+          {# ---------- Username ---------- #}
+          <div class="mb-3">
+            <label class="form-label" for="{{ form.username.id_for_label }}">Username</label>
+            <input class="form-control {% if form.username.errors %}is-invalid{% endif %}"
+                   type="text"
+                   name="{{ form.username.html_name }}"
+                   id="{{ form.username.id_for_label }}"
+                   value="{{ form.username.value|default:'' }}"
+                   maxlength="150" autocomplete="username" autocapitalize="none" autofocus required
+                   aria-describedby="usernameHelp">
+            {% for error in form.username.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+            <div class="form-text" id="usernameHelp">Letters, numbers and @ . + - _ only. People see this on your reviews.</div>
+          </div>
+
+          {# ---------- Email ---------- #}
+          <div class="mb-3">
+            <label class="form-label" for="{{ form.email.id_for_label }}">Email</label>
+            <input class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                   type="email"
+                   name="{{ form.email.html_name }}"
+                   id="{{ form.email.id_for_label }}"
+                   value="{{ form.email.value|default:'' }}"
+                   autocomplete="email" required
+                   aria-describedby="emailHelp">
+            {% for error in form.email.errors %}<div class="invalid-feedback">{{ error }}</div>{% endfor %}
+            <div class="form-text" id="emailHelp">We'll only use it if you forget your password.</div>
+          </div>
+
+          {# ---------- Password ---------- #}
+          <div class="mb-3">
+            <label class="form-label" for="{{ form.password1.id_for_label }}">Password</label>
+            <div class="password-wrap">
+              <input class="form-control {% if form.password1.errors %}is-invalid{% endif %}"
+                     type="password"
+                     name="{{ form.password1.html_name }}"
+                     id="{{ form.password1.id_for_label }}"
+                     autocomplete="new-password" required
+                     aria-describedby="passwordHelp">
+              <button class="toggle-pw" type="button" data-target="{{ form.password1.id_for_label }}" aria-label="Show password" aria-pressed="false">
+                <i class="bi bi-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+            {% for error in form.password1.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+            {# Django's password rules (AUTH_PASSWORD_VALIDATORS in settings.py), as an HTML list #}
+            <div class="form-text" id="passwordHelp">{{ form.password1.help_text|safe }}</div>
+          </div>
+
+          {# ---------- Confirm password ---------- #}
+          <div class="mb-4">
+            <label class="form-label" for="{{ form.password2.id_for_label }}">Confirm password</label>
+            <div class="password-wrap">
+              <input class="form-control {% if form.password2.errors %}is-invalid{% endif %}"
+                     type="password"
+                     name="{{ form.password2.html_name }}"
+                     id="{{ form.password2.id_for_label }}"
+                     autocomplete="new-password" required>
+              <button class="toggle-pw" type="button" data-target="{{ form.password2.id_for_label }}" aria-label="Show password" aria-pressed="false">
+                <i class="bi bi-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+            {% for error in form.password2.errors %}<div class="invalid-feedback d-block">{{ error }}</div>{% endfor %}
+          </div>
+
+          {# Where to go after signing up: the signup view reads this hidden field #}
+          <input type="hidden" name="next" value="{{ next }}">
+
+          <button class="btn btn-seat w-100" type="submit">Create account</button>
+        </form>
+
+        {# Keeps ?next= so logging in instead also returns the user to where they were #}
+        <p class="switch">Already have an account? <a href="{% url 'login' %}{% if next %}?next={{ next|urlencode }}{% endif %}">Log in</a></p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Show / hide each password box (there are two on this page)
+    document.querySelectorAll('.toggle-pw').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const pw = document.getElementById(toggle.dataset.target);
+        const show = pw.type === 'password';
+        pw.type = show ? 'text' : 'password';
+        toggle.setAttribute('aria-pressed', show);
+        toggle.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        toggle.innerHTML = `<i class="bi ${show ? 'bi-eye-slash' : 'bi-eye'}" aria-hidden="true"></i>`;
+      });
+    });
+  </script>
+</body>
+</html>
