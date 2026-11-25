@@ -13,6 +13,7 @@ class User(AbstractUser):
 
 class Genre(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(unique=True, default = '', max_length=60)
 
     class Meta:
         ordering = ["name"]
@@ -23,8 +24,10 @@ class Genre(models.Model):
 
 class Movie(models.Model):
     title = models.CharField(max_length=200)
+    slug = models.SlugField(unique=True, default = '', max_length=200)
     year = models.PositiveSmallIntegerField()
     runtime_minutes = models.PositiveSmallIntegerField(null=True, blank=True)
+    runtime_hour = models.PositiveSmallIntegerField(null=True, blank=True)
     overview = models.TextField(blank=True)
     poster_url = models.ImageField(blank=True, upload_to='movie_posters/')
     trailer_url = models.URLField(blank=True)
